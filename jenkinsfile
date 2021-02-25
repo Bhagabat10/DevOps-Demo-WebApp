@@ -16,22 +16,27 @@ pipeline {
             steps {
                 echo 'Deploy to Test..'
             }
+         }
         stage('Artifactory Deploy') {
             steps {
                 echo 'Artifactory Deploy..'
             }
+         }   
         stage('UI Test') {
             steps {
                 echo 'UI Test..'
             }
+         }   
         stage('Performance Test') {
             steps {
                 echo 'Performance Test..'
             }
+         }   
         stage('Deploy to Production') {
             steps {
                 echo 'Deploy to Production..'
-            }    
+            }
+         }   
         stage('Sanity Test') {
             steps {
                 echo 'Sanity Test....'
