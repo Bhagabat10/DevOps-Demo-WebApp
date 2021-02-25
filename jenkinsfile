@@ -10,6 +10,8 @@ pipeline {
         stage('Build the Application') {
             steps {
                 echo 'Build the Application..'
+                sh "mvn -version"
+                sh "mvn complie"
             }
         }
         stage('Deploy to Test') {
