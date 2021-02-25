@@ -2,19 +2,39 @@ pipeline {
     agent any
 
     stages {
-        stage('Build') {
+        stage('Static Code analysis') {
             steps {
-                echo 'Building..'
+                echo 'Static Code analysis..'
             }
         }
-        stage('Test') {
+        stage('Build the Application') {
             steps {
-                echo 'Testing..'
+                echo 'Build the Application..'
             }
         }
-        stage('Deploy') {
+        stage('Deploy to Test') {
             steps {
-                echo 'Deploying....'
+                echo 'Deploy to Test..'
+            }
+        stage('Artifactory Deploy') {
+            steps {
+                echo 'Artifactory Deploy..'
+            }
+        stage('UI Test') {
+            steps {
+                echo 'UI Test..'
+            }
+        stage('Performance Test') {
+            steps {
+                echo 'Performance Test..'
+            }
+        stage('Deploy to Production') {
+            steps {
+                echo 'Deploy to Production..'
+            }    
+        stage('Sanity Test') {
+            steps {
+                echo 'Sanity Test....'
             }
         }
     }
