@@ -16,7 +16,7 @@ public class viewticket extends HttpServlet {
 		try
 		{
 			Class.forName("org.postgresql.Driver");
-			String jdbcUrl="jdbc:postgresql://34.72.163.73:5432/postgres";
+			String jdbcUrl="jdbc:postgresql://3.137.173.75:5432/postgres";
 			String username="postgres";
 			String password="password";
 						
