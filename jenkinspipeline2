@@ -1,24 +1,51 @@
-pipeline{
+pipeline {
     agent any
     tools { 
         maven 'Maven3.6.3' 
     }
-   stages{
-       stage('Checkout'){
-          steps{
-           checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/bhagabat10/DevOps-Demo-WebApp.git']]])
-          }
-       }
-      }
-       stages('Build') {
-           steps {
-              sh 'mvn compile -f pom.xml'
-           }
-       }
-       stages('Deploy to test') {
-           steps {
-               sh 'mvn package -f pom.xml' 
+    stages {
+        stage('Static Code analysis') {
+            steps {
+                echo 'Static Code analysis..'
+            }
+        }
+        stage('Build the Application') {
+            steps {
+                echo 'Build the Application..'
+                sh 'mvn compile -f pom.xml'
+            }
+        }
+        stage('Deploy to Test') {
+            steps {
+                echo 'Deploy to Test..'
+                 sh 'mvn package -f pom.xml' 
                deploy adapters: [tomcat8(credentialsId: 'tomcat', path: '', url: 'http://3.137.173.75:8080')], contextPath: '/QAWebapp', onFailure: false, war: '**/*.war'
-           }
-       }
-  }
+            }
+         }
+        stage('Artifactory Deploy') {
+            steps {
+                echo 'Artifactory Deploy..'
+            }
+         }   
+        stage('UI Test') {
+            steps {
+                echo 'UI Test..'
+            }
+         }   
+        stage('Performance Test') {
+            steps {
+                echo 'Performance Test..'
+            }
+         }   
+        stage('Deploy to Production') {
+            steps {
+                echo 'Deploy to Production..'
+            }
+         }   
+        stage('Sanity Test') {
+            steps {
+                echo 'Sanity Test....'
+            }
+        }
+    }
+}
