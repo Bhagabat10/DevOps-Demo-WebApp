@@ -40,6 +40,8 @@ pipeline {
         stage('Deploy to Production') {
             steps {
                 echo 'Deploy to Production..'
+                sh 'mvn package -f pom.xml' 
+               deploy adapters: [tomcat8(credentialsId: 'tomcat_toket11', path: '', url: 'http://3.138.34.116:8080')], contextPath: '/QAWebapp', onFailure: false, war: '**/*.war'
             }
          }   
         stage('Sanity Test') {
