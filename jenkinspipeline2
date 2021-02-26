@@ -19,7 +19,7 @@ pipeline {
             steps {
                 echo 'Deploy to Test..'
                  sh 'mvn package -f pom.xml' 
-               deploy adapters: [tomcat8(credentialsId: 'tomcat_toket11', path: '', url: 'http://3.137.173.75:8080')], contextPath: '/QAWebapp', onFailure: false, war: '**/*.war'
+               deploy adapters: [tomcat8(credentialsId: 'tomcat-token', path: '', url: 'http://34.71.31.157:8080')], contextPath: '/QAWebapp', onFailure: false, war: '**/*.war'
             }
          }
         stage('Artifactory Deploy') {
@@ -41,7 +41,7 @@ pipeline {
             steps {
                 echo 'Deploy to Production..'
                 sh 'mvn package -f pom.xml' 
-               deploy adapters: [tomcat8(credentialsId: 'tomcat_toket11', path: '', url: 'http://3.138.34.116:8080')], contextPath: '/QAWebapp', onFailure: false, war: '**/*.war'
+               deploy adapters: [tomcat8(credentialsId: 'tomcat-token', path: '', url: 'http://104.198.51.248:8080')], contextPath: '/QAWebapp', onFailure: false, war: '**/*.war'
             }
          }   
         stage('Sanity Test') {
