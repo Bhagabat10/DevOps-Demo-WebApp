@@ -1,0 +1,42 @@
+pipeline{
+    agent any
+    tools { 
+        maven 'Maven3.6.3' 
+    }
+   stages{
+       stage('Checkout'){
+          steps{
+           checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/bhagabat10/DevOps-Demo-WebApp.git']]])
+          }
+       }
+       
+       stage('Build') {
+           steps {
+              sh 'mvn compile -f pom.xml'
+           }
+       }
+       
+       stage('Code Analysis') {
+           steps{
+               withSonarQubeEnv(credentialsId: 'AdminSonar-Token', installationName: 'SonarQube') {
+                 sh "${tool("SonarQube")}/bin/sonar-scanner \
+                -Dsonar.projectKey=. \
+                -Dsonar.sources=. \
+                -Dsonar.tests=. \
+                -Dsonar.inclusions=**/test/java/servlet/createpage_junit.java \
+                -Dsonar.test.exclusions=**/test/java/servlet/createpage_junit.java \
+                -Dsonar.login=admin \
+                -Dsonar.password=sonar "
+                 sh 'mvn validate -f pom.xml'
+                }
+           }
+       }
+       stage('Deploy to test') {
+           steps {
+               sh 'mvn package -f pom.xml' 
+               deploy adapters: [tomcat8(credentialsId: 'b4bf869a-9319-45d6-9989-edff703d9a1e', path: '', url: 'http://3.14.71.16:8080')], contextPath: '/QAWebapp', onFailure: false, war: '**/*.war'
+           }
+       }
+       
+   }
+}
