@@ -30,7 +30,7 @@ pipeline {
                 def server = Artifactory.server('artifactory')
                 def rtMaven = Artifactory.newMavenBuild()
                 rtServer.server id: "artifactory",
-                rtServer.server url: "https://devopsbhagu.jfrog.io/artifactory",
+                rtServer.server url: "https://devopsbhagu.jfrog.io/artifactory"
                 rtServer.serever credentialsId: "deploy"
                 rtMaven.resolver server: server, releaseRepo: 'libs-release', snapshotRepo: 'libs-snapshot'
                 rtMaven.deployer server: server, releaseRepo: 'libs-release-local', snapshotRepo: 'libs-snapshot-local'
