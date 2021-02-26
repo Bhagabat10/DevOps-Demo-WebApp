@@ -7,17 +7,17 @@ pipeline {
         stage('Static Code analysis') {
             steps {
                 echo 'Static Code analysis..'
-                withSonarQubeEnv('sonarqube') {
-                 sh "${tool("sonarqube")}/bin/sonar-scanner \
-                -Dsonar.projectKey=. \
-                -Dsonar.sources=. \
-                -Dsonar.tests=. \
-                -Dsonar.inclusions=**/test/java/servlet/createpage_junit.java \
-                -Dsonar.test.exclusions=**/test/java/servlet/createpage_junit.java \
-                -Dsonar.login=admin \
-                -Dsonar.password=sonar "
-                 sh 'mvn validate -f pom.xml'
-                }
+                //withSonarQubeEnv('sonarqube') {
+                 //sh "${tool("sonarqube")}/bin/sonar-scanner \
+                //-Dsonar.projectKey=. \
+               // -Dsonar.sources=. \
+               // -Dsonar.tests=. \
+               // -Dsonar.inclusions=**/test/java/servlet/createpage_junit.java \
+               // -Dsonar.test.exclusions=**/test/java/servlet/createpage_junit.java \
+                //-Dsonar.login=admin \
+               // -Dsonar.password=sonar "
+                // sh 'mvn validate -f pom.xml'
+               // }
             }
         }
         stage('Build the Application') {
