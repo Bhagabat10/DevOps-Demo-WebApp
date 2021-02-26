@@ -55,11 +55,29 @@ pipeline {
         stage('UI Test') {
             steps {
                 echo 'UI Test..'
+              publishHTML target: [
+              allowMissing: false,
+              alwaysLinkToLastBuild: false,
+              keepAll: true,
+              reportDir: '\functionaltest\target\surefire-reports',
+              reportFiles: 'index.html',
+              reportName: 'HTML Report'
+            ]
             }
          }   
         stage('Performance Test') {
             steps {
                 echo 'Performance Test..'
+                blazeMeterTest credentialsId:'Blazmeter',
+                serverUrl:'https://a.blazemeter.com',
+                testId:'53',
+                notes:'',
+                sessionProperties:'',
+                jtlPath:'',
+                junitPath:'',
+                getJtl:false,
+                getJunit:false
+
             }
          }   
         stage('Deploy to Production') {
@@ -71,7 +89,15 @@ pipeline {
          }   
         stage('Sanity Test') {
             steps {
-                echo 'Sanity Test....'
+              echo 'Sanity Test....'
+              publishHTML target: [
+              allowMissing: false,
+              alwaysLinkToLastBuild: false,
+              keepAll: true,
+              reportDir: '\Acceptancetest\target\surefire-reports',
+              reportFiles: 'index.html',
+              reportName: 'Sanity Test Report'
+            ]                
             }
         }
     }
