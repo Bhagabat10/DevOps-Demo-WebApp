@@ -27,7 +27,7 @@ pipeline {
                 echo 'Artifactory Deploy..'
                 dir("project_templates/java_project_template"){
                 script {
-                def server = Artifactory.server('artifactory')
+                def server = Artifactory.server('Artifactory')
                 def rtMaven = Artifactory.newMavenBuild()
                 //rtServer.server id "artifactory",
                 //rtServer.server url "https://devopsbhagu.jfrog.io/artifactory"
