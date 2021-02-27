@@ -59,7 +59,7 @@ pipeline {
               allowMissing: false,
               alwaysLinkToLastBuild: false,
               keepAll: true,
-              reportDir: 'coverage',
+              reportDir: '\functionaltest\target\surefire-reports',
               reportFiles: 'index.html',
               reportName: 'HTML Report'
             ]
@@ -68,7 +68,7 @@ pipeline {
         stage('Performance Test') {
             steps {
                 echo 'Performance Test..'
-                blazeMeterTest credentialsId:'Blazmeter',
+                blazeMeterTest credentialsId:'BlazeMeter-recent',
                 serverUrl:'https://a.blazemeter.com',
                 testId:'53',
                 notes:'',
@@ -94,7 +94,7 @@ pipeline {
               allowMissing: false,
               alwaysLinkToLastBuild: false,
               keepAll: true,
-              reportDir: 'coverage',
+              reportDir: '\Acceptancetest\target\surefire-reports',
               reportFiles: 'index.html',
               reportName: 'Sanity Test Report'
             ]                
