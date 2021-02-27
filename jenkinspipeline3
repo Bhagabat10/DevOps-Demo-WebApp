@@ -77,7 +77,8 @@ pipeline {
                // junitPath:'',
                // getJtl:false,
                // getJunit:false
-                blazeMeterTest credentialsId: 'BlazeMeter-recent', testId: '9031524.taurus', workspaceId: '756537'
+               //comment below line for not to start Blazmeter
+                //blazeMeterTest credentialsId: 'BlazeMeter-recent', testId: '9031524.taurus', workspaceId: '756537'
 
             }
          }   
@@ -88,18 +89,18 @@ pipeline {
                deploy adapters: [tomcat8(credentialsId: 'tomcat-token', path: '', url: 'http://34.68.12.79:8080')], contextPath: '/QAWebapp', onFailure: false, war: '**/*.war'
             }
          }   
-        //stage('Sanity Test') {
-           // steps {
-              //echo 'Sanity Test....'
-              //publishHTML target: [
-             // allowMissing: false,
-             // alwaysLinkToLastBuild: false,
-             // keepAll: true,
-             // reportDir: '\\Acceptancetest\\target\\surefire-reports',
-             // reportFiles: 'index.html',
-            //  reportName: 'Sanity Test Report'
-           // ]                
-           // }
-       // }
+        stage('Sanity Test') {
+            steps {
+              echo 'Sanity Test....'
+              publishHTML target: [
+              allowMissing: false,
+              alwaysLinkToLastBuild: false,
+              keepAll: true,
+              reportDir: '\\Acceptancetest\\target\\surefire-reports',
+              reportFiles: 'index.html',
+              reportName: 'Sanity Test Report'
+            ]                
+            }
+        }
     }
 }
