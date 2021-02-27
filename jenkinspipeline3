@@ -94,7 +94,7 @@ pipeline {
               allowMissing: false,
               alwaysLinkToLastBuild: false,
               keepAll: true,
-              reportDir: '\Acceptancetest\target\surefire-reports',
+              reportDir: 'coverage',
               reportFiles: 'index.html',
               reportName: 'Sanity Test Report'
             ]                
