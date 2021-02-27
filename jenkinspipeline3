@@ -68,15 +68,16 @@ pipeline {
         stage('Performance Test') {
             steps {
                 echo 'Performance Test..'
-                blazeMeterTest credentialsId:'BlazeMeter-recent',
-                serverUrl:'https://a.blazemeter.com',
-                testId:'',
-                notes:'',
-                sessionProperties:'',
-                jtlPath:'',
-                junitPath:'',
-                getJtl:false,
-                getJunit:false
+                //blazeMeterTest credentialsId:'BlazeMeter-recent',
+               // serverUrl:'https://a.blazemeter.com',
+                //testId:'',
+               // notes:'',
+               // sessionProperties:'',
+               // jtlPath:'',
+               // junitPath:'',
+               // getJtl:false,
+               // getJunit:false
+                blazeMeterTest credentialsId: 'BlazeMeter-recent', testId: '9031524.taurus', workspaceId: '756537'
 
             }
          }   
