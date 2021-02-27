@@ -59,7 +59,7 @@ pipeline {
               allowMissing: false,
               alwaysLinkToLastBuild: false,
               keepAll: true,
-              reportDir: '\functionaltest\target\surefire-reports',
+              reportDir: '\\functionaltest\\target\\surefire-reports',
               reportFiles: 'index.html',
               reportName: 'HTML Report'
             ]
@@ -94,7 +94,7 @@ pipeline {
               allowMissing: false,
               alwaysLinkToLastBuild: false,
               keepAll: true,
-              reportDir: '\Acceptancetest\target\surefire-reports',
+              reportDir: '\\Acceptancetest\\target\\surefire-reports',
               reportFiles: 'index.html',
               reportName: 'Sanity Test Report'
             ]                
