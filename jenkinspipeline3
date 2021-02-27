@@ -102,5 +102,12 @@ pipeline {
             ]                
             }
         }
+        stage('Notification send') {
+            steps {
+                echo 'Notification send..'
+                slackSend color: '#BADA55', message: 'Hello, Bhagabat ----good jobs!'
+                
+            }
+         } 
     }
 }
