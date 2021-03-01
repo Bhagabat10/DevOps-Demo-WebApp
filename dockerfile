@@ -1,5 +1,4 @@
 from tomcat:8.0.20-jre8
-from jdk: JDK8
 
 RUN mkdir /usr/local/tomcat/webapps/mywebapp
 
