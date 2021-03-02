@@ -4,22 +4,7 @@ pipeline {
         maven 'Maven3.6.3' 
     }
     stages {
-        stage('Static Code analysis') {
-            steps {
-                echo 'Static Code analysis..'
-                withSonarQubeEnv('sonarqube') {
-                sh "${tool("sonarqube")}/bin/sonar-scanner \
-                -Dsonar.projectKey=. \
-                -Dsonar.sources=. \
-                -Dsonar.tests=. \
-                -Dsonar.inclusions=**/test/java/servlet/createpage_junit.java \
-                -Dsonar.test.exclusions=**/test/java/servlet/createpage_junit.java \
-                -Dsonar.login=admin \
-                -Dsonar.password=sonar "
-                 sh 'mvn validate -f pom.xml'
-                }
-            }
-        }
+        
         stage('Build the Application') {
             steps {
                 echo 'Build the Application..'
@@ -30,41 +15,11 @@ pipeline {
             steps {
                 echo 'Deploy to Test..'
                  sh 'mvn package -f pom.xml' 
-               deploy adapters: [tomcat8(credentialsId: 'tomcat-token', path: '', url: 'http://104.197.52.154:8080')], contextPath: '/QAWebapp', onFailure: false, war: '**/*.war'
+               deploy adapters: [tomcat8(credentialsId: 'tomcat-token', path: '', url: 'http://3.15.26.223:8080')], contextPath: '/QAWebapp', onFailure: false, war: '**/*.war'
             }
          }
-        stage('Artifactory Deploy') {
-            steps {
-                echo 'Artifactory Deploy..'
-                //dir("project_templates/java_project_template"){
-                script {
-                def server = Artifactory.server('Artifactory')
-                def rtMaven = Artifactory.newMavenBuild()
-                //rtServer.server id "artifactory",
-                //rtServer.server url "https://devopsbhagu.jfrog.io/artifactory"
-                //rtServer.serever credentialsId: "deploy"
-                rtMaven.resolver server: server, releaseRepo: 'libs-release', snapshotRepo: 'libs-snapshot'
-                rtMaven.deployer server: server, releaseRepo: 'libs-release-local', snapshotRepo: 'libs-snapshot-local'
-                rtMaven.tool = 'Maven3.6.3'
-                def buildInfo = rtMaven.run pom: 'pom.xml', goals: 'package'
-                server.publishBuildInfo buildInfo
-                }
-              // }
-            }
-         }   
-        stage('UI Test') {
-            steps {
-                echo 'UI Test..'
-              publishHTML target: [
-              allowMissing: false,
-              alwaysLinkToLastBuild: false,
-              keepAll: true,
-              reportDir: '\\functionaltest\\target\\surefire-reports',
-              reportFiles: 'index.html',
-              reportName: 'HTML Report'
-            ]
-            }
-         }   
+       
+        
         stage('Performance Test') {
             steps {
                 echo 'Performance Test..'
@@ -85,23 +40,11 @@ pipeline {
         stage('Deploy to Production') {
             steps {
                 echo 'Deploy to Production..'
-                sh 'mvn package -f pom.xml' 
-               deploy adapters: [tomcat8(credentialsId: 'tomcat-token', path: '', url: 'http://34.68.12.79:8080')], contextPath: '/QAWebapp', onFailure: false, war: '**/*.war'
+               // sh 'mvn package -f pom.xml' 
+               //deploy adapters: [tomcat8(credentialsId: 'tomcat-token', path: '', url: 'http://34.68.12.79:8080')], contextPath: '/QAWebapp', onFailure: false, war: '**/*.war'
             }
          }   
-        stage('Sanity Test') {
-            steps {
-              echo 'Sanity Test....'
-              publishHTML target: [
-              allowMissing: false,
-              alwaysLinkToLastBuild: false,
-              keepAll: true,
-              reportDir: '\\Acceptancetest\\target\\surefire-reports',
-              reportFiles: 'index.html',
-              reportName: 'Sanity Test Report'
-            ]                
-            }
-        }
+        
         stage('Notification send') {
             steps {
                 echo 'Notification send..'
