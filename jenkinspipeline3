@@ -67,7 +67,7 @@ pipeline {
                  //withDockerRegistry([ credentialsId: "DockerID", url: "" ]) {
                  //sh  'docker push bhagabat10/webapp:latest'
                  echo 'docker file.3333..'
-                  }
+                  //}
                  
                 }
              }
