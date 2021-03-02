@@ -108,6 +108,33 @@ pipeline {
                 slackSend color: '#BADA55', message: 'Hello, Bhagabat ----good jobs!'
                 
             }
-         } 
+         }
+         
+         stage('Docker Build and Tag') {
+           steps {
+             
+                sh 'docker build -t webapp:latest .'
+                sh 'docker tag webapp bhagabat10/webapp:latest'
+          }
+        }
+     
+        stage('Publish image to Docker Hub') {
+         
+            steps {
+                 withDockerRegistry([ credentialsId: "DockerID", url: "" ]) {
+                 sh  'docker push bhagabat10/webapp:latest'
+                 
+                  }
+                 
+                }
+             }
+        stage('Run Docker container on remote hosts') {
+             
+            steps {
+              sh "docker -H ssh://root@13.59.44.228 run -d -p 8081:8080 bhagabat10/webapp"
+             // sh 'ssh -tt root@13.59.44.228'
+            }
+        }
+         
     }
 }
