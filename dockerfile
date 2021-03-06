@@ -1,4 +1,4 @@
-//from tomcat:latest
+from tomcat:latest
 
 RUN mkdir /usr/local/tomcat/webapps/mywebapp
 
