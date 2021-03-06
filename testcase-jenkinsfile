@@ -72,7 +72,7 @@ pipeline{
                    steps {
                        echo 'Notification..'
                        slackSend color: '#BADA55', message: 'Hello, Bhagabat casestudy----good jobs!'
-                       //slackSend channel: '', message: 'Deploy to Test was successful.'  
+                       //slackSend channel: 'casestudy-slackID', message: 'Deploy to Test was successful.'  
                    }
                 }
            }
@@ -99,7 +99,7 @@ pipeline{
                steps {
                  echo 'Notification..'
                  //slackSend channel: 'alerts', message: 'Deploy to PROD was successful.'  
-                 slackSend color: '#BADA55', message: 'Hello, Bhagabat casestudy----good jobs!'
+                slackSend color: '#BADA55', message: 'Hello, Bhagabat casestudy----good jobs!'
                }
            }
            
