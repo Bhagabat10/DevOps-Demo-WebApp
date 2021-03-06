@@ -33,7 +33,7 @@ pipeline{
                // -Dsonar.login=admin \
                // -Dsonar.password=sonar "
                //  sh 'mvn validate -f pom.xml'
-                }
+               // }
            }
        }
        stage('Deploy to Artifactory') {
