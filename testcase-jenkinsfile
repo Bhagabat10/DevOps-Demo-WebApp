@@ -49,7 +49,7 @@ pipeline{
            steps {
                echo 'Test Deploy..'
                sh 'mvn package -f pom.xml' 
-               deploy adapters: [tomcat8(credentialsId: 'tomcat-token', path: '', url: 'http://18.222.69.234:8080')], contextPath: '/QAWebapp', onFailure: false, war: '**/*.war'
+               deploy adapters: [tomcat8(credentialsId: 'tomcat_toket', path: '', url: 'http://18.222.69.234:8080')], contextPath: '/QAWebapp', onFailure: false, war: '**/*.war'
                
              }
        }
