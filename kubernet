@@ -1,0 +1,15 @@
+stage('Deploy to K8') {
+          steps {
+              sshagent(['Kubernetes']){
+             sh "scp -o StrictHostKeyChecking=no Deployment.yaml ubuntu@18.216.53.62:/home/ubuntu/" 
+             script
+             {
+             try {
+              sh "ssh ubuntu@18.216.53.62 kubectl apply -f ."
+             } catch(error) {
+              sh "ssh ubuntu@18.216.53.62 kubectl create -f ."   
+               }
+             }
+            } 
+          }
+      }
