@@ -48,8 +48,8 @@ pipeline{
        stage('Deploy to test') {
            steps {
                echo 'Test Deploy..'
-               //sh 'mvn package -f pom.xml' 
-               //deploy adapters: [tomcat8(credentialsId: 'b4bf869a-9319-45d6-9989-edff703d9a1e', path: '', url: 'http://18.216.48.69:8080')], contextPath: '/QAWebapp', onFailure: false, war: '**/*.war'
+               sh 'mvn package -f pom.xml' 
+               deploy adapters: [tomcat8(credentialsId: 'tomcat-token', path: '', url: 'http://18.222.69.234:8080')], contextPath: '/QAWebapp', onFailure: false, war: '**/*.war'
                
              }
        }
