@@ -1,0 +1,43 @@
+pipeline {
+    agent any
+    tools { 
+        maven 'Maven3.6.3' 
+    }
+    envirorenment{
+    DOCKER_TAG=getDockerTag()
+    }
+    stages {
+        
+        stage('Build the Image') {
+            steps {
+                echo 'Build the Image..'
+                sh 'docker build . -t bhagabat10/webapp:${DOCKER_TAG}'
+            }
+        }
+        stage('DockerHub Push') {
+            steps {
+                echo 'DockerHub Push..'
+                withCredentials([string(credentialId:'bhagabat10',variable:'Raj2301928')])
+                {
+                }
+               }
+         }           
+        stage('Deploy to k8s') {
+            steps {
+                echo 'Deploy to k8s..'
+                sh 'chmod +x changeTag.sh"
+                sh'.changeTag.sh'
+                sshgent(['K8S-2']){
+                sh 'scp -o StrictHostKeyChecking=no services.yml node-app-pod.yml ec2-user@3.138.155.167:/home/ec2-user/"
+                script{
+                   try{
+                      sh "ssh ec2-user@3.138.155.167 kubectl apply -f .'
+                      }catch(error){
+                      sh "ssh ec2-user@3.138.155.167 kubectl create -f .'
+                      }
+                }
+                
+            }
+         } 
+    }
+}
