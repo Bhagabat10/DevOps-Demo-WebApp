@@ -68,7 +68,8 @@ pipeline{
                //  }
                 stage('Slack Notification') {
                    steps {
-                       slackSend channel: 'alerts', message: 'Deploy to Test was successful.'  
+                       echo 'Notification..'
+                       //slackSend channel: 'alerts', message: 'Deploy to Test was successful.'  
                    }
                 }
            }
@@ -92,7 +93,8 @@ pipeline{
            }
            stage('Slack Notification') {
                steps {
-                 slackSend channel: 'alerts', message: 'Deploy to PROD was successful.'  
+                 echo 'Notification..'
+                 //slackSend channel: 'alerts', message: 'Deploy to PROD was successful.'  
                }
            }
            
